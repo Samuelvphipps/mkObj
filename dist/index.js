@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const commander_1 = require("commander");
 const Dictionary_1 = require("./Dictionary");
 const readline = __importStar(require("readline/promises"));
 let dictionary = new Dictionary_1.Dictionary();
@@ -33,26 +32,23 @@ const rl = readline.createInterface({
     output: process.stdout,
     prompt: '> '
 });
-function handleInput() {
-    commander_1.program
-        .version("1.0.0")
-        .description("My Multi Value Dictionary");
-    commander_1.program
-        .command("ADD <key> <member>")
-        .description("Add a member to a collection for a given key.")
-        .action((key, member) => {
-        try {
+function handleInput(input) {
+    const [command, ...args] = input.split(' ');
+    switch (command) {
+        case 'ADD':
+            const [key, member] = args;
             dictionary.add(key, member);
-            console.log("Added");
-        }
-        catch (error) {
-            console.log(error.message);
-        }
-    });
-    commander_1.program
-        .command("KEYS")
-        .description("Returns all the keys in the dictionary.")
-        .action(() => console.log(dictionary.keys()));
+            break;
+        case 'KEYS':
+            console.log(dictionary.keys());
+            break;
+        case 'HELP':
+            console.log('Commands: ADD, KEYS, HELP');
+            break;
+        default:
+            console.log('Invalid command, please try again. To see a list of commands, type HELP.');
+            break;
+    }
     rl.prompt();
 }
 rl.on('line', handleInput);

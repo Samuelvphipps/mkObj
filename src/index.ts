@@ -12,29 +12,25 @@ const rl = readline.createInterface({
 });
 
 
-function handleInput() {
-    program
-        .version("1.0.0")
-        .description("My Multi Value Dictionary")
+function handleInput(input: string) {
+    const [command, ...args] = input.split(' ');
 
-    program
-        .command("ADD <key> <member>")
-        .description("Add a member to a collection for a given key.")
-        .action((key, member) => {
-            try {
-                dictionary.add(key, member);
-                console.log("Added");
-            } catch (error: any) {
-                console.log(error.message);
-            }
-        });
-
-    program
-        .command("KEYS")
-        .description("Returns all the keys in the dictionary.")
-        .action(() => console.log(dictionary.keys()));
-
-    program.parse(process.argv);
+    switch (command) {
+        case 'ADD':
+            const [key, member] = args;
+            dictionary.add(key, member);
+            break;
+        case 'KEYS':
+            console.log(dictionary.keys());
+            break;
+        case 'HELP':
+            console.log('Commands: ADD, KEYS, HELP');
+            break;
+        default:
+            console.log('Invalid command, please try again. To see a list of commands, type HELP.');
+            break;
+    }
+    
     rl.prompt();
 }
 

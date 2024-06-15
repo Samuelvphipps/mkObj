@@ -18,13 +18,13 @@ export class Dictionary {
         if (!this.dictionary[key]) {
             this.dictionary[key] = new Set();
             this.dictionary[key].add(member);
-            console.log('meow added', this.dictionary)
+            console.log(`) Added`);
             return 
-
         }
         if (this.dictionary[key].has(member)) {
             throw new Error("Member already exists for key");
         }
         this.dictionary[key].add(member);
+        console.log(`) Added`);
     }
 }
