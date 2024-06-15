@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import { program } from "commander";
 import { Dictionary } from "./Dictionary";
 import * as readline from 'readline/promises';
