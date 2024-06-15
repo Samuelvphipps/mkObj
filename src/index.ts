@@ -8,28 +8,75 @@ let dictionary = new Dictionary();
 
 program
   .name('multi-value-dictionary')
-  .description('Multi-Value Dictionary CLI');
+  .description('Multi-Value Dictionary CLI')
+  .exitOverride()
 
 program 
     .command('ADD <key> <member>')
     .action((key, member) => {
         dictionary.add(key, member);
-    });
+    })
     
 program
   .command('KEYS')
   .action(() => {
-    dictionary.keys().forEach(key => console.log(key));
-  });
+    dictionary.keys().forEach((key, i) => console.log(`${i + 1}) ${key}`)) 
+  })
 
 program
   .command('MEMBERS <key>')
   .action((key) => {
-    const members = dictionary.members(key);
+    const members: string[] = dictionary.members(key);
     if (members) {
-      members.forEach(member => console.log(member));
+      members.forEach((member, i) => console.log(`${i + 1}) ${member}`));
     }
-  });
+  })
+
+program
+    .command('REMOVE <key> <member>')
+    .action((key, member) => {
+        dictionary.remove(key, member);
+    })
+
+program
+    .command('REMOVEALL <key>')
+    .action((key) => {
+        dictionary.removeAll(key);
+    })
+
+program
+    .command('CLEAR')
+    .action(() => {
+        dictionary.clear();
+    })
+
+program
+    .command('KEYEXISTS <key>')
+    .action((key) => {
+        console.log(dictionary.keyExists(key));
+    })
+
+program
+// todo: handle case where key does not exist and a member arg is still added
+    .command('MEMBEREXISTS <key> <member>')
+    .action((key, member) => {
+        console.log(dictionary.memberExists(key, member));
+    })
+
+program
+    .command('ALLMEMBERS')
+    .action(() => {
+        let members = dictionary.allMembers();
+        members.length > 0 ? members.forEach((member, i) => console.log(`${i + 1}) ${member}`)) 
+            :
+        console.log('(empty set)');
+    })
+
+program
+    .command('ITEMS')
+    .action(() => {
+        console.log(dictionary.items());
+    })
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -48,7 +95,7 @@ function handleInput(input: string) {
       try {
         program.parse(input.trim().split(' '), { from: 'user' });
       } catch (error: any) {
-        console.error('Invalid command:', error.message);
+        console.error('Invalid command');
       }
 
     rl.prompt();

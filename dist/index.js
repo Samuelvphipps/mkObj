@@ -30,7 +30,8 @@ const readline = __importStar(require("readline/promises"));
 let dictionary = new Dictionary_1.Dictionary();
 commander_1.program
     .name('multi-value-dictionary')
-    .description('Multi-Value Dictionary CLI');
+    .description('Multi-Value Dictionary CLI')
+    .exitOverride();
 commander_1.program
     .command('ADD <key> <member>')
     .action((key, member) => {
@@ -39,15 +40,54 @@ commander_1.program
 commander_1.program
     .command('KEYS')
     .action(() => {
-    dictionary.keys().forEach(key => console.log(key));
+    dictionary.keys().forEach((key, i) => console.log(`${i + 1}) ${key}`));
 });
 commander_1.program
     .command('MEMBERS <key>')
     .action((key) => {
     const members = dictionary.members(key);
     if (members) {
-        members.forEach(member => console.log(member));
+        members.forEach((member, i) => console.log(`${i + 1}) ${member}`));
     }
+});
+commander_1.program
+    .command('REMOVE <key> <member>')
+    .action((key, member) => {
+    dictionary.remove(key, member);
+});
+commander_1.program
+    .command('REMOVEALL <key>')
+    .action((key) => {
+    dictionary.removeAll(key);
+});
+commander_1.program
+    .command('CLEAR')
+    .action(() => {
+    dictionary.clear();
+});
+commander_1.program
+    .command('KEYEXISTS <key>')
+    .action((key) => {
+    console.log(dictionary.keyExists(key));
+});
+commander_1.program
+    // todo: handle case where key does not exist and a member arg is still added
+    .command('MEMBEREXISTS <key> <member>')
+    .action((key, member) => {
+    console.log(dictionary.memberExists(key, member));
+});
+commander_1.program
+    .command('ALLMEMBERS')
+    .action(() => {
+    let members = dictionary.allMembers();
+    members.length > 0 ? members.forEach((member, i) => console.log(`${i + 1}) ${member}`))
+        :
+            console.log('(empty set)');
+});
+commander_1.program
+    .command('ITEMS')
+    .action(() => {
+    console.log(dictionary.items());
 });
 const rl = readline.createInterface({
     input: process.stdin,
@@ -63,7 +103,7 @@ function handleInput(input) {
         commander_1.program.parse(input.trim().split(' '), { from: 'user' });
     }
     catch (error) {
-        console.error('Invalid command:', error.message);
+        console.error('Invalid command');
     }
     rl.prompt();
 }
