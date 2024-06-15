@@ -11,6 +11,12 @@ class Dictionary {
     keys() {
         return Object.keys(this.dictionary);
     }
+    members(key) {
+        if (!this.dictionary[key]) {
+            console.log(') ERROR, key does not exist.');
+        }
+        return Array.from(this.dictionary[key]);
+    }
     /**
      * Adds a key value pair to the dictionary.
      * @param key

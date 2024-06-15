@@ -24,33 +24,67 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const commander_1 = require("commander");
 const Dictionary_1 = require("./Dictionary");
 const readline = __importStar(require("readline/promises"));
 let dictionary = new Dictionary_1.Dictionary();
+commander_1.program
+    .name('multi-value-dictionary')
+    .description('Multi-Value Dictionary CLI');
+commander_1.program
+    .command('ADD <key> <member>')
+    .action((key, member) => {
+    dictionary.add(key, member);
+});
+commander_1.program
+    .command('KEYS')
+    .action(() => {
+    dictionary.keys().forEach(key => console.log(key));
+});
+commander_1.program
+    .command('MEMBERS <key>')
+    .action((key) => {
+    const members = dictionary.members(key);
+    if (members) {
+        members.forEach(member => console.log(member));
+    }
+});
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     prompt: '> '
 });
 function handleInput(input) {
-    const [command, ...args] = input.split(' ');
-    switch (command) {
-        case 'ADD':
-            const [key, member] = args;
-            dictionary.add(key, member);
-            break;
-        case 'KEYS':
-            console.log(dictionary.keys());
-            break;
-        case 'HELP':
-            console.log('Commands: ADD, KEYS, HELP');
-            break;
-        default:
-            console.log('Invalid command, please try again. To see a list of commands, type HELP.');
-            break;
+    if (input.trim() === 'exit') {
+        rl.close();
+        return;
+    }
+    try {
+        commander_1.program.parse(input.trim().split(' '), { from: 'user' });
+    }
+    catch (error) {
+        console.error('Invalid command:', error.message);
     }
     rl.prompt();
 }
 rl.on('line', handleInput);
 rl.prompt();
+// const [command, ...args] = input.split(' ');
+//     switch (command) {
+//         case 'ADD':
+//             const [key, member] = args;
+//             args.length !== 2 ? console.log(') ERROR, invalid number of arguments.') :
+//             dictionary.add(key, member);
+//             break;
+//         case 'KEYS':
+//             console.log(dictionary.keys());
+//             break;
+//         case 'HELP':
+//             console.log('Commands: ADD, KEYS, HELP');
+//             break;
+//         case 'MEMBERS':
+//         default:
+//             console.log('Invalid command, please try again. To see a list of commands, type HELP.');
+//             break;
+//     }
 //# sourceMappingURL=index.js.map
