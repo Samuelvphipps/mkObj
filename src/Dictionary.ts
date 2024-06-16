@@ -1,9 +1,16 @@
+import { Store } from "./Store";
 
 /**
  * A dictionary class that stores key-value pairs.
  */
 export class Dictionary {
     dictionary: { [key: string]: Set<string> } = {};
+    store: Store;
+
+    constructor(store?: Store) {
+        this.store = store || new Store();
+        this.dictionary = this.store.loadDictionary();
+    }
 
     keys(): string[] {
         if (Object.keys(this.dictionary).length === 0) {
@@ -29,6 +36,7 @@ export class Dictionary {
             this.dictionary[key] = new Set();
             this.dictionary[key].add(member);
             console.log(`) Added`);
+            this.save();
             return
         }
         if (this.dictionary[key].has(member)) {
@@ -37,6 +45,8 @@ export class Dictionary {
         }
         this.dictionary[key].add(member);
         console.log(`) Added`);
+        this.save();
+        return
     }
 
     /** 
@@ -56,6 +66,7 @@ export class Dictionary {
         this.dictionary[key].delete(member)
         if (this.dictionary[key].size === 0) {
             delete this.dictionary[key];
+            this.save();
         }
     }
 
@@ -69,6 +80,8 @@ export class Dictionary {
             return
         }
         delete this.dictionary[key];
+        console.log(') Removed')
+        this.save();
     }
     /**
      * Removes all key value pairs from the dictionary.
@@ -76,6 +89,7 @@ export class Dictionary {
     clear(): void {
         this.dictionary = {}
         console.log(') Cleared')
+        this.save();
     }
 
     /** 
@@ -122,4 +136,10 @@ export class Dictionary {
         return returnString.trim();
     }
 
+    /**
+     * Saves the dictionary to a file.
+     */
+    save(): void {
+        this.store.saveDictionary(this.dictionary);
+    }
 }
