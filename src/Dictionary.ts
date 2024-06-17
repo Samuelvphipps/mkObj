@@ -6,6 +6,10 @@ import { errorColor } from ".";
 export class Dictionary {
     dictionary: { [key: string]: Set<string> } = {};
 
+    /**
+     * returns all keys in the dictionary.
+     * @returns 
+     */
     keys(): string[] {
         if (Object.keys(this.dictionary).length === 0) {
             console.log('(empty set)')
@@ -13,6 +17,11 @@ export class Dictionary {
         return Object.keys(this.dictionary)
     }
 
+    /**
+     * returns all members in a collection for a given key.
+     * @param key 
+     * @returns 
+     */
     members(key: string): string[] {
         if (!this.dictionary[key]) {
             console.log(errorColor(') ERROR, key does not exist.'))
