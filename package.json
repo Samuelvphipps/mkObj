@@ -6,7 +6,7 @@
     "mkobj": "./dist/index.js"
   },
   "scripts": {
-    "initiate": "npx tsc && node dist/index.js",
+    "dictionary": "npx tsc && node dist/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
