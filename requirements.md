@@ -4,8 +4,8 @@ It should support the following commands.
 
 ### KEYS
 
-[ ] Returns all the keys in the dictionary.  
-[ ] Order is not guaranteed.
+[X] Returns all the keys in the dictionary.  
+[X] Order is not guaranteed.
 
 Example
 ```
@@ -19,9 +19,9 @@ Example
 ```
 
 ### MEMBERS
-[ ] Returns the collection of strings for the given key.  
-[ ] Return order is not guaranteed.  
-[ ] Returns an error if the key does not exists.
+[X] Returns the collection of strings for the given key.  
+[X] Return order is not guaranteed.  
+[X] Returns an error if the key does not exists.
 
 Example:
 ```
@@ -36,8 +36,8 @@ Example:
 ```
 
 ### ADD
-[ ] Adds a member to a collection for a given key. 
-[ ] Displays an error if the member already exists for the key.
+[X] Adds a member to a collection for a given key. 
+[X] Displays an error if the member already exists for the key.
 
 ```
 > ADD foo bar
@@ -49,9 +49,9 @@ Example:
 ```
 
 ### REMOVE
-[ ] Removes a member from a key.  
-[ ] If the last member is removed from the key, the key is removed from the dictionary. 
-[ ] If the key or member does not exist, displays an error.
+[X] Removes a member from a key.  
+[X] If the last member is removed from the key, the key is removed from the dictionary. 
+[X] If the key or member does not exist, displays an error.
 
 Example:
 ```
@@ -79,8 +79,8 @@ Example:
 ```
 
 ### REMOVEALL
-[ ] Removes all members for a key and removes the key from the dictionary. 
-[ ] Returns an error if the key does not exist.
+[x] Removes all members for a key and removes the key from the dictionary. 
+[x] Returns an error if the key does not exist.
 
 Example:
 ```
@@ -103,7 +103,7 @@ REMOVEALL foo
 ```
 
 ### CLEAR
-[ ] Removes all keys and all members from the dictionary.
+[X] Removes all keys and all members from the dictionary.
 
 Example:
 ```
@@ -130,7 +130,7 @@ Example:
 ```
 
 ### KEYEXISTS
-[ ] Returns whether a key exists or not.
+[X] Returns whether a key exists or not.
 
 Example:
 ```
@@ -143,8 +143,8 @@ Example:
 ```
 
 ### MEMBEREXISTS
-[ ] Returns whether a member exists within a key.  
-[ ] Returns false if the key does not exist.
+[x] Returns whether a member exists within a key.  
+[x] Returns false if the key does not exist.
 
 Example:
 ```
@@ -159,8 +159,8 @@ Example:
 ```
 
 ### ALLMEMBERS
-[ ] Returns all the members in the dictionary.  
-[ ] Returns nothing if there are none. Order is not guaranteed.
+[X] Returns all the members in the dictionary.  
+[X] Returns nothing if there are none. Order is not guaranteed.
 
 Example:
 ```
@@ -184,8 +184,8 @@ Example:
 ```
 
 ### ITEMS
-[ ] Returns all keys in the dictionary and all of their members.  
-[ ] Returns nothing if there are none.  Order is not guaranteed.
+[X] Returns all keys in the dictionary and all of their members.  
+[X] Returns nothing if there are none.  Order is not guaranteed.
 
 Example:
 ```

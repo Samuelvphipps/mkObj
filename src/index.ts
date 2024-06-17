@@ -123,7 +123,7 @@ rl.on('line', handleInput);
 
 rl.prompt();
 
-function errorColor(error: string) {
+export function errorColor(error: string) {
     // Add ANSI escape codes to display text in red.
     return `\x1b[31m${error}\x1b[0m`;
   }

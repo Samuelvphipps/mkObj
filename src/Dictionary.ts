@@ -1,3 +1,4 @@
+import { errorColor } from ".";
 
 /**
  * A dictionary class that stores key-value pairs.
@@ -14,7 +15,7 @@ export class Dictionary {
 
     members(key: string): string[] {
         if (!this.dictionary[key]) {
-            console.log(') ERROR, key does not exist.')
+            console.log(errorColor(') ERROR, key does not exist.'))
         }
         return Array.from(this.dictionary[key]);
     }
@@ -32,7 +33,7 @@ export class Dictionary {
             return
         }
         if (this.dictionary[key].has(member)) {
-            console.log(') ERROR, member already exists.')
+            console.log(errorColor(') ERROR, member already exists.'))
             return
         }
         this.dictionary[key].add(member);
@@ -46,17 +47,18 @@ export class Dictionary {
      */
     remove(key: string, member: string): void {
         if (!this.dictionary[key]) {
-            console.log(') ERROR, key does not exist.')
+            console.log(errorColor(') ERROR, key does not exist.'))
             return
         }
         if (!this.dictionary[key].has(member)) {
-            console.log(') ERROR, member does not exist.')
+            console.log(errorColor(') ERROR, member does not exist.'))
             return
         }
         this.dictionary[key].delete(member)
         if (this.dictionary[key].size === 0) {
             delete this.dictionary[key];
         }
+        console.log(') Removed key')
     }
 
     /**
@@ -65,10 +67,11 @@ export class Dictionary {
      */
     removeAll(key: string): void {
         if (!this.dictionary[key]) {
-            console.log(') ERROR, key does not exist.')
+            console.log(errorColor(') ERROR, key does not exist.'))
             return
         }
         delete this.dictionary[key];
+        console.log(') Removed')
     }
     /**
      * Removes all key value pairs from the dictionary.
@@ -90,7 +93,7 @@ export class Dictionary {
      */
     memberExists(key: string, member: string): string {
         if (!this.dictionary[key]) {
-            return ') ERROR, key does not exist.';
+            return (') ERROR, key does not exist.');
         }
         return `${this.dictionary[key].has(member)}`;
     }
