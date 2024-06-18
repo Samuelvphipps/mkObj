@@ -121,7 +121,7 @@ function handleInput(input: string) {
         }
     } catch {
         console.error('Try again, use -h command for assistance')
-        }
+    }
 
     rl.prompt()
 }
