@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { program } from "commander";
-import { Dictionary } from "./Dictionary";
-import * as readline from 'readline/promises';
+import { program } from "commander"
+import { Dictionary } from "./Dictionary"
+import * as readline from 'readline/promises'
 
-let dictionary = new Dictionary();
+let dictionary = new Dictionary()
 
 // Defines the CLI
 program
@@ -21,7 +21,7 @@ program
     .command('ADD <key> <member>')
     .description('Add a member to a collection for a given key')
     .action((key, member) => {
-        dictionary.add(key, member);
+        dictionary.add(key, member)
     })
     
 program
@@ -35,9 +35,9 @@ program
     .command('MEMBERS <key>')
     .description('Get all members in a collection for a given key')
     .action((key) => {
-        const members: string[] = dictionary.members(key);
+        const members: string[] = dictionary.members(key)
         if (members) {
-            members.forEach((member, i) => console.log(`${i + 1}) ${member}`));
+            members.forEach((member, i) => console.log(`${i + 1}) ${member}`))
         }
     })
 
@@ -45,52 +45,52 @@ program
     .command('REMOVE <key> <member>')
     .description('Remove specified member from a key')
     .action((key, member) => {
-        dictionary.remove(key, member);
+        dictionary.remove(key, member)
     })
 
 program
     .command('REMOVEALL <key>')
     .description('Remove all members from a key')
     .action((key) => {
-        dictionary.removeAll(key);
+        dictionary.removeAll(key)
     })
 
 program
     .command('CLEAR')
     .description('Remove all keys and members')
     .action(() => {
-        dictionary.clear();
+        dictionary.clear()
     })
 
 program
     .command('KEYEXISTS <key>')
     .description('Check if key exists')
     .action((key) => {
-        console.log(dictionary.keyExists(key));
+        console.log(dictionary.keyExists(key))
     })
 
 program
     .command('MEMBEREXISTS <key> <member>')
     .description('Check if member exists for a key')
     .action((key, member) => {
-        console.log(dictionary.memberExists(key, member));
+        console.log(dictionary.memberExists(key, member))
     })
 
 program
     .command('ALLMEMBERS')
     .description('Get all members in the dictionary')
     .action(() => {
-        let members = dictionary.allMembers();
+        let members = dictionary.allMembers()
         members.length > 0 ? members.forEach((member, i) => console.log(`${i + 1}) ${member}`)) 
             :
-        console.log('(empty set)');
+        console.log('(empty set)')
     })
 
 program
     .command('ITEMS')
     .description('Get all keys and members in the dictionary')
     .action(() => {
-        console.log(dictionary.items());
+        console.log(dictionary.items())
     })
 
 // *This section handles the input from the user and defines the interface
@@ -108,8 +108,8 @@ const rl = readline.createInterface({
 function handleInput(input: string) {
 
     if (input.trim() === 'EXIT') {
-        rl.close();
-        return;
+        rl.close()
+        return
       }
       try {
         if(input.trim() == '-h' || input.trim() == '--help' || input.trim() == 'help') {
@@ -120,19 +120,19 @@ function handleInput(input: string) {
             program.parse(input.trim().split(' '), { from: 'user' })
         }
       } catch {
-        console.error('Try again, use -h command for assistance');
+        console.error('Try again, use -h command for assistance')
       }
 
-    rl.prompt();
+    rl.prompt()
 }
 
-rl.on('line', handleInput);
+rl.on('line', handleInput)
 
 // *This redisplays the prompt to the user
-rl.prompt();
+rl.prompt()
 
 // *This section defines the error color within the terminal - FN from the commander.js documentation
 export function errorColor(error: string) {
     // Add ANSI escape codes to display text in red.
-    return `\x1b[31m${error}\x1b[0m`;
+    return `\x1b[31m${error}\x1b[0m`
   }

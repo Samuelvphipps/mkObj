@@ -1,10 +1,10 @@
-import { errorColor } from ".";
+import { errorColor } from "."
 
 /**
  * A dictionary class that stores key-value pairs.
  */
 export class Dictionary {
-    dictionary: { [key: string]: Set<string> } = {};
+    dictionary: { [key: string]: Set<string> } = {}
 
     /**
      * returns all keys in the dictionary.
@@ -26,7 +26,7 @@ export class Dictionary {
         if (!this.dictionary[key]) {
             console.log(errorColor(') ERROR, key does not exist.'))
         }
-        return Array.from(this.dictionary[key]);
+        return Array.from(this.dictionary[key])
     }
 
     /**
@@ -36,17 +36,17 @@ export class Dictionary {
      */
     add(key: string, member: string): void {
         if (!this.dictionary[key]) {
-            this.dictionary[key] = new Set();
-            this.dictionary[key].add(member);
-            console.log(`) Added`);
+            this.dictionary[key] = new Set()
+            this.dictionary[key].add(member)
+            console.log(`) Added`)
             return
         }
         if (this.dictionary[key].has(member)) {
             console.log(errorColor(') ERROR, member already exists.'))
             return
         }
-        this.dictionary[key].add(member);
-        console.log(`) Added`);
+        this.dictionary[key].add(member)
+        console.log(`) Added`)
     }
 
     /** 
@@ -65,7 +65,7 @@ export class Dictionary {
         }
         this.dictionary[key].delete(member)
         if (this.dictionary[key].size === 0) {
-            delete this.dictionary[key];
+            delete this.dictionary[key]
         }
         console.log(') Removed key')
     }
@@ -79,7 +79,7 @@ export class Dictionary {
             console.log(errorColor(') ERROR, key does not exist.'))
             return
         }
-        delete this.dictionary[key];
+        delete this.dictionary[key]
         console.log(') Removed')
     }
     /**
@@ -102,20 +102,20 @@ export class Dictionary {
      */
     memberExists(key: string, member: string): string {
         if (!this.dictionary[key]) {
-            return (') ERROR, key does not exist.');
+            return (') ERROR, key does not exist.')
         }
-        return `${this.dictionary[key].has(member)}`;
+        return `${this.dictionary[key].has(member)}`
     }
 
     /**
      * Returns all members in the dictionary.
      */
     allMembers(): string[] {
-        let allMembers: string[] = [];
+        let allMembers: string[] = []
         for (let key in this.dictionary) {
             allMembers.push(...Array.from(this.dictionary[key]))
         }
-        return allMembers;
+        return allMembers
     }
 
     /**
@@ -123,15 +123,14 @@ export class Dictionary {
      */
     items(): string {
         if (Object.keys(this.dictionary).length === 0) {
-            return '(empty set)';
+            return '(empty set)'
         }
-        let returnString: string = '';
+        let returnString: string = ''
         Object.entries(this.dictionary).forEach(([key, membersSet], i) => {
             Array.from(membersSet).forEach((member) => {
-                returnString += `${i + 1}) ${key}: ${member}\n`;
-            });
+                returnString += `${i + 1}) ${key}: ${member}\n`
+            })
         })
-        return returnString.trim();
+        return returnString.trim()
     }
-
 }
