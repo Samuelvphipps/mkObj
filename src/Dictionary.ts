@@ -133,4 +133,17 @@ export class Dictionary {
         })
         return returnString.trim()
     }
+
+
+    /**
+     * Returns all keys in alphabetical order
+     */
+    alphabetize(): {[key: string]: string[]} {
+        let alphabetize: {[key: string]: string[]} = {}
+
+        Object.entries(this.dictionary).forEach(([key, membersSet], i) => {
+            alphabetize[key] = Array.from(membersSet).sort()
+        })
+        return alphabetize
+    }
 }

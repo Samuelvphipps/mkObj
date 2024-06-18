@@ -110,8 +110,8 @@ function handleInput(input: string) {
     if (input.trim() === 'EXIT') {
         rl.close()
         return
-      }
-      try {
+    }
+    try {
         if(input.trim() == '-h' || input.trim() == '--help' || input.trim() == 'help') {
             // *Displays the help menu - built in conditionaly to prenent auto error handling via commander.js (bug fix)
             program.outputHelp()
@@ -119,9 +119,9 @@ function handleInput(input: string) {
             // *Runs commander.js to parse the input
             program.parse(input.trim().split(' '), { from: 'user' })
         }
-      } catch {
+    } catch {
         console.error('Try again, use -h command for assistance')
-      }
+        }
 
     rl.prompt()
 }
